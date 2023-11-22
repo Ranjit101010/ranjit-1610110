@@ -1,15 +1,15 @@
 variable "project_id" {
-  type        = string
+  type = string
 }
 
 variable "region" {
-  type    = string
+  type = string
 }
 
 variable "tf_state_bucket" {
-  type    = string
+  type = string
 }
 
 variable "infra_bucket" {
-  type    = string
+  type = string
 }
