@@ -1,5 +1,5 @@
 
-name: 'Terraform'
+name: 'Destroy Infrastructure'
 
 on:
   push:
