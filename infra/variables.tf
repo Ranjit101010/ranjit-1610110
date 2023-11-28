@@ -20,3 +20,18 @@ variable "bucket" {
     public_access_prevention = string
   }))
 }
+
+variable "fn_object" {
+  type = map(object({
+    type        = string
+    source_dir  = string
+    output_path = string
+  }))
+}
+
+variable "bucket_objects" {
+  type = map(object({
+    name    = string
+    content = string
+  }))
+}
