@@ -1,0 +1,62 @@
+[
+    {
+      "name": "__EMPTY",
+      "type": "INTEGER",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "Company",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "TypeName",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "Inches",
+      "type": "FLOAT",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "ScreenResolution",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "Cpu",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "Ram",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "Memory",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "Gpu",
+      "type": "TIMESTAMP",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "OpSys",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "Weight",
+      "type": "STRING",
+      "mode": "NULLABLE"
+    },
+    {
+      "name": "Price",
+      "type": "FLOAT",
+      "mode": "NULLABLE"
+    }
+  ]

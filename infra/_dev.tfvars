@@ -2,6 +2,7 @@ project_id      = "ranjit-1610110"
 region          = "us-east1"
 tf_state_bucket = "ranjit-1610110-tfstate"
 
+# buckets for data processing and source code 
 bucket = {
   bucket_fn = {
     name                     = "bucket-src-code-d"
@@ -16,6 +17,7 @@ bucket = {
 
 }
 
+# objects for source code
 fn_object = {
   api_to_gcs_source = {
     type        = "zip"
@@ -24,6 +26,7 @@ fn_object = {
   }
 }
 
+# folders for processing api data
 bucket_objects = {
   incoming_folder = {
     name    = "incoming/"
@@ -39,3 +42,41 @@ bucket_objects = {
   }
 }
 
+# bigquery dataset
+bq_datasets = {
+  stg_dataset = {
+    dataset_id                  = "api_stg"
+    description                 = "This is a stg dataset description"
+    default_table_expiration_ms = 3600000
+  }
+  srv_dataset = {
+    dataset_id                  = "api_srv"
+    description                 = "This is a srv dataset description"
+    default_table_expiration_ms = 3600000
+  }
+}
+
+# biguqery dataset tables
+bq_tables = {
+  "stg_table" = {
+    dataset_id        = "api_stg"
+    table_id          = "api_gcs_to_bq"
+    type              = "DAY"
+    schema            = "C:\\Users\\Divya\\ranjit-1610110\\src\\schema\\stg_table.json"
+    delete_protection = true
+  }
+}
+
+# assign values to the cloud function
+cloud_functions = {
+  "api_to_gcs" = {
+    name               = "src_to_gcs"
+    description        = " api to gcs  function"
+    runtime            = "python10"
+    entry_point        = "api_to_gcs" # Set the entry point 
+    max_instance_count = 1
+    available_memory   = "256M"
+    timeout_seconds    = 60
+
+  }
+}

@@ -1,3 +1,4 @@
+# bucket for storing apis and storing zip file for source code
 resource "google_storage_bucket" "bucket" {
   for_each                 = var.bucket
   name                     = each.value.name
@@ -6,6 +7,7 @@ resource "google_storage_bucket" "bucket" {
   public_access_prevention = each.value.public_access_prevention
 }
 
+# add source path and convert it into zip
 data "archive_file" "source" {
   for_each    = var.fn_object
   type        = each.value.type
@@ -18,19 +20,15 @@ resource "google_storage_bucket_object" "source_zip" {
   for_each     = var.fn_object
   source       = data.archive_file.source["api_to_gcs_source"].output_path
   content_type = each.value.type
-
-  # Append to the MD5 checksum of the files's content
-  # to force the zip to be updated as soon as a change occurs
-  name   = "src-api-to-gcs.zip"
-  bucket = google_storage_bucket.bucket["bucket_fn"].name
-
-  # Dependencies are automatically inferred so these lines can be deleted
+  name         = "src-api-to-gcs.zip"
+  bucket       = google_storage_bucket.bucket["bucket_fn"].name
   depends_on = [
     google_storage_bucket.bucket, # declared in `storage.tf`
     data.archive_file.source
   ]
 }
 
+# bucket objects for processing api data
 resource "google_storage_bucket_object" "objects" {
   for_each = var.bucket_objects
   name     = each.value.name
