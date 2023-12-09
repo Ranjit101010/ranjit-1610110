@@ -3,7 +3,9 @@ name: 'Create or Update Infrastructure'
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: 
+      - develop
+      - 'ft/*'
   pull_request:
 
 permissions:
@@ -48,14 +50,14 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -var-file="dev.tfvars"
+      run: terraform plan -var-file="_dev.tfvars"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
-      run: terraform apply -auto-approve -var-file="dev.tfvars"
+      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/ft/' && github.event_name == 'push'
+      run: terraform apply -auto-approve -var-file="_dev.tfvars"
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
